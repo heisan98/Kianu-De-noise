@@ -24,7 +24,7 @@
 ## 安装
 
 1. 到 [Releases](../../releases) 下载最新的 `Kianu De-noise v1.0.0 (Windows x64).zip`
-2. 解压后把 `Kianu De-noise.vst3` 整个文件夹放到：
+2. 安装后会把 `Kianu De-noise.vst3` 放到：
 
    ```
    C:\Program Files\Common Files\VST3\
@@ -61,34 +61,7 @@
 ## 从源码构建
 
 ```bash
-git clone <本仓库地址>
-cd Kianu-De-noise
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
+自己动手，丰衣足食
 ```
-
-- 需要 CMake ≥ 3.22、Visual Studio 2022（MSVC）、Windows SDK
-- JUCE **不需要手动下载**：仓库里没有 `JUCE/` 时，CMake 会自动拉取固定版本 `9.0.5`
-- 产物：
-  - `build/VVoxClone_artefacts/Release/VST3/Kianu De-noise.vst3`
-  - `build/VVoxClone_artefacts/Release/Standalone/Kianu De-noise.exe`
-
-跑测试：
-
-```bash
-cd build
-ctest -C Release --output-on-failure
-```
-
-## 更新日志
-
-### v1.0.0
-
-- 首个公开版本
-- 960×640 / 980×660 / 1440×1040 自适应界面
-- 阈值线拖动、旋钮拖动读数、噪声学习、三模式
-- 右下角使用声明与微信二维码
-
----
 
 KIANU AUDIO · 2026
