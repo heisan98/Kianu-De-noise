@@ -51,7 +51,7 @@
 
 有问题、想要新功能，加微信：**fenderstudiopro**
 
-<img src="Data/wx.jpg" width="180" alt="微信二维码">
+<img src="docs/微信二维码.jpg" width="180" alt="微信二维码">
 
 ## 声明
 
@@ -63,5 +63,5 @@
 ```bash
 自己动手，丰衣足食
 ```
-
+![stats](https://github-readme-stats.vercel.app/api?username=heisan98&show_icons=true&hide_title=true&count_private=true)
 KIANU AUDIO · 2026
