@@ -1,67 +1,88 @@
 # Kianu De-noise
 
-面向人声/对白的实时降噪插件（VST3 + 独立程序），Windows x64。
+A real-time noise reduction plugin for voice and dialogue — VST3 + standalone app, Windows x64.
 
-![界面预览](docs/screenshot.png)
+[中文说明](README.zh-CN.md) · [Download](https://github.com/heisan980429-lab/Kianu-De-noise/releases) · [License](LICENSE)
+
+![Interface](docs/screenshot.png)
 
 ---
 
-## 功能
+## Features
 
-- **实时谱减降噪**：低延迟，适合直播、录音、后期对白清理
-- **噪声学习**：点一下 `LEARN NOISE` 抓取当前底噪轮廓，随工程保存
-- **三档工作模式**：Dialogue（对白）/ Balance（均衡）/ Music（音乐）
-- **可视化对比**：波形区同时显示 INPUT（灰）与 OUTPUT（青绿），一眼看出被削掉的部分
-- **阈值直接在波形上拖**：虚线即阈值，上下拖动即可改，双击复位
-- **旋钮拖动时显示数值**：不占版面，松手即收起
+- **Real-time spectral-subtraction denoiser** — low latency, built for live streaming, tracking and dialogue cleanup
+- **Noise learning** — hit `LEARN NOISE` to capture the current noise floor; the profile is saved with the project
+- **Three working modes** — Dialogue / Balance / Music
+- **Visual comparison** — the scope draws INPUT (grey) and OUTPUT (teal) together, so you can see exactly what got removed
+- **Drag the threshold right on the waveform** — the dashed line is the threshold; drag it up or down, double-click to reset
+- **Value read-out while you turn** — shown on the dial's outer ring, hidden the moment you let go
 
-| 参数 | 范围 | 说明 |
+| Parameter | Range | Description |
 |---|---|---|
-| Threshold | −60 … 0 dB | 低于此电平的噪声被处理 |
-| Reduction | 0 … 100 % | 降噪强度 |
-| Range | 0 … 60 dB | 最大衰减量 |
+| Threshold | −60 … 0 dB | Noise below this level is processed |
+| Reduction | 0 … 100 % | Amount of reduction |
+| Range | 0 … 60 dB | Maximum attenuation |
 
-## 安装
+## Installation
 
-1. 到 [Releases](../../releases) 下载最新的 `Kianu De-noise v1.0.0 (Windows x64).zip`
-2. 安装后会把 `Kianu De-noise.vst3` 放到：
+1. Grab `Kianu De-noise-1.0.0.exe` (≈ 36 MB) from [Releases](../../releases)
+2. Quit your DAW, then run the installer and follow the steps. It places `Kianu De-noise.vst3` in:
 
    ```
    C:\Program Files\Common Files\VST3\
    ```
 
-3. 在宿主（Cubase / Studio One / Reaper / FL Studio / Audition…）里重新扫描插件
-4. 也可以直接运行 `Kianu De-noise.exe` 用独立程序
+3. Restart your host and rescan the VST3 folder (Cubase / Nuendo / Studio One / Reaper / FL Studio / Audition / WaveLab…)
+4. The installer also ships the standalone app `Kianu De-noise.exe` — no host required
 
-## 使用
+> The installer is not code-signed. If Windows shows "Windows protected your PC", click **More info → Run anyway**.
 
-1. 先播一段「只有噪声、没有人声」的素材，点 `LEARN NOISE`（3 秒自动结束）
-2. 播放正式素材，看波形上的灰色 INPUT 是否被压在虚线以下
-3. 拖虚线上/下调整阈值，或转 `REDUCTION` / `RANGE`
-4. 三种模式按素材切换：人声用 Dialogue，混合内容用 Balance，音乐用 Music
+## Usage
 
-![拖动旋钮读数](docs/knob-drag.png)
+1. Play a section that contains noise only (no voice) and hit `LEARN NOISE` — it finishes automatically in 3 seconds
+2. Play your actual material and check that the grey INPUT curve sits below the dashed threshold line
+3. Drag the dashed line up or down to set the threshold, or turn `REDUCTION` / `RANGE` for strength and maximum attenuation
+4. Pick a mode to match the material: Dialogue for speech, Balance for mixed content, Music for music
 
-## 系统要求
+![Dial read-out while dragging](docs/knob-drag.png)
 
-- Windows 10 / 11 x64
-- 支持 VST3 的宿主，或直接使用独立程序
+## Requirements
 
-## 反馈
+- Windows 10 / 11, 64-bit
+- A VST3-capable host, or the bundled standalone app
 
-有问题、想要新功能，加微信：**fenderstudiopro**
+## Feedback
 
-<img src="docs/微信二维码.jpg" width="180" alt="微信二维码">
+Bugs, feature requests, anything else — WeChat: **fenderstudiopro**
 
-## 声明
+<img src="docs/wechat-qr.jpg" width="180" alt="WeChat QR code">
 
-内核源自网络，仅供学习研究使用。请勿商用或用于非法用途，后果自负。喜欢请支持正版，侵权请微信联系我们处理。
-完整条款见 [LICENSE](LICENSE)。
+## Disclaimer
 
-## 从源码构建
+The processing kernel originates from the internet and is provided for study and research only. Do not use it commercially or for unlawful purposes; you are responsible for the consequences. If you like it, please support the original work. For copyright concerns, contact us on WeChat.
+Full terms: [LICENSE](LICENSE).
+
+## Build from source
+
+Requires Visual Studio 2022 (MSVC) and CMake 3.22+.
 
 ```bash
-自己动手，丰衣足食
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
 ```
-![stats](https://github-readme-stats.vercel.app/api?username=heisan98&show_icons=true&hide_title=true&count_private=true)
-KIANU AUDIO · 2026
+
+The built artefacts land in:
+
+```
+build\VVoxClone_artefacts\Release\VST3\Kianu De-noise.vst3\
+build\VVoxClone_artefacts\Release\Standalone\Kianu De-noise.exe
+```
+
+JUCE is **not** vendored in this repository: if there is no `JUCE/` folder, CMake fetches the pinned version `9.0.5` automatically on the first configure.
+
+Run the tests with:
+
+```bash
+cd build
+ctest -C Release --output-on-failure
+```
